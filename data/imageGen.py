@@ -5,18 +5,19 @@ from PIL import Image
 from PIL import ImageDraw
 from random import randint
 
-def genIm(): 
+def genIm(num, word): 
 	# Random ints 
 	size = randint(40, 150)
 	r = randint(0, 255)
 	g = randint(0, 255)
 	b = randint(0, 255)
-	x = randint(0, 150)
-	y = randint(0, 400)
+	x = randint(0, 380 - 2*size)
+	y = randint(0, 400 - size)
 
 	# Choose a random font 
-	fontName = random.choice(os.listdir("fonts/"))
-
+	#fontName = random.choice(os.listdir("fonts/"))
+	fontName = "BrookeS8.ttf"
+	print(str(num) + fontName)
 	# Fetch font
 	font = ImageFont.truetype("fonts/" + fontName, size)
 
@@ -25,11 +26,17 @@ def genIm():
 	draw = ImageDraw.Draw(img)
 
 	# Gen text 
-	draw.text((x, y),"test",(255-r,255-g,255-b),font=font)
+	w, h = draw.textsize(word, font)
+	draw.text((x, y),word,(255-r,255-g,255-b),font=font)
 	draw = ImageDraw.Draw(img)
 
-	img.show("test.png")
+	img.show(title = str(num))
 
 if __name__ == "__main__":
+	words = ["apple", "bike", "car", "drive", "end", "fail", "grad", "hope", "item", "jump"]
 
-	genIm()
+	for x in range(10): 
+		w = randint(0,9)
+		genIm(x, words[w])
+
+
