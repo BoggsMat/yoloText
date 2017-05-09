@@ -4,6 +4,8 @@ from PIL import ImageFont
 from PIL import Image
 from PIL import ImageDraw
 from random import randint
+from pascal import PascalVocWriter
+import cv2 
 
 def genIm(num, word): 
 	# Random ints 
@@ -15,9 +17,8 @@ def genIm(num, word):
 	y = randint(0, 400 - size)
 
 	# Choose a random font 
-	#fontName = random.choice(os.listdir("fonts/"))
-	fontName = "BrookeS8.ttf"
-	print(str(num) + fontName)
+	fontName = random.choice(os.listdir("fonts/"))
+
 	# Fetch font
 	font = ImageFont.truetype("fonts/" + fontName, size)
 
@@ -30,13 +31,20 @@ def genIm(num, word):
 	draw.text((x, y),word,(255-r,255-g,255-b),font=font)
 	draw = ImageDraw.Draw(img)
 
-	img.show(title = str(num))
+	img.save('/home/mat/yoloText/data/training/' + str("%04d"%num), 'png')
+
+	return (x,y,w,h)
 
 if __name__ == "__main__":
-	words = ["apple", "bike", "car", "drive", "end", "fail", "grad", "hope", "item", "jump"]
+	words = ["apple", "bike", "car", "drive", "end", "fail", "grad", "hope", "item", "job"]
+	im = cv2.imread('training/0000.png')
+	cv2.imshow("test", im)
+	for i in range(45): 
+		wd = randint(0,9)
+		(x, y, w, h) = genIm(i, words[wd])
+		writer = PascalVocWriter('/home/mat/yoloText/data/training/', str("%04d"%i)+ ".xml", (448,448))
+		writer.addBndBox(x-2, y-2, x+w+2, y+h+2, words[wd])
+		writer.save('/home/mat/yoloText/data/training/'+str("%04d"%i)+ ".xml")
 
-	for x in range(10): 
-		w = randint(0,9)
-		genIm(x, words[w])
 
 

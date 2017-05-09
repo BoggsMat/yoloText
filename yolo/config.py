@@ -4,9 +4,9 @@ import os
 # path and dataset parameter
 #
 
-DATA_PATH = 'data'
+DATA_PATH = 'home/mat/yoloText/data'
 
-PASCAL_PATH = os.path.join(DATA_PATH, 'pascal_voc')
+PASCAL_PATH = os.path.join(DATA_PATH, 'training')
 
 CACHE_PATH = os.path.join(PASCAL_PATH, 'cache')
 
@@ -17,10 +17,7 @@ WEIGHTS_DIR = os.path.join(PASCAL_PATH, 'weights')
 WEIGHTS_FILE = None
 # WEIGHTS_FILE = os.path.join(DATA_PATH, 'weights', 'YOLO_small.ckpt')
 
-CLASSES = ['aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus',
-           'car', 'cat', 'chair', 'cow', 'diningtable', 'dog', 'horse',
-           'motorbike', 'person', 'pottedplant', 'sheep', 'sofa',
-           'train', 'tvmonitor']
+CLASSES = ['apple', 'bike', 'car', 'drive', 'end', 'fail', 'grad', 'hope', 'item', 'job']
 
 FLIPPED = True
 
@@ -61,7 +58,7 @@ STAIRCASE = True
 
 BATCH_SIZE = 45
 
-MAX_ITER = 15000
+MAX_ITER = 1
 
 SUMMARY_ITER = 10
 

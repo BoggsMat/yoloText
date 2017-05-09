@@ -9,8 +9,8 @@ import yolo.config as cfg
 
 class pascal_voc(object):
     def __init__(self, phase, rebuild=False):
-        self.devkil_path = os.path.join(cfg.PASCAL_PATH, 'VOCdevkit')
-        self.data_path = os.path.join(self.devkil_path, 'VOC2007')
+        self.devkil_path = cfg.PASCAL_PATH
+        self.data_path = cfg.PASCAL_PATH
         self.cache_path = cfg.CACHE_PATH
         self.batch_size = cfg.BATCH_SIZE
         self.image_size = cfg.IMAGE_SIZE
@@ -69,7 +69,7 @@ class pascal_voc(object):
         return gt_labels
 
     def load_labels(self):
-        cache_file = os.path.join(self.cache_path, 'pascal_' + self.phase + '_gt_labels.pkl')
+        cache_file = os.path.join(self.cache_path, self.phase + '_gt_labels.pkl')
 
         if os.path.isfile(cache_file) and not self.rebuild:
             print('Loading gt_labels from: ' + cache_file)
@@ -77,22 +77,8 @@ class pascal_voc(object):
                 gt_labels = cPickle.load(f)
             return gt_labels
 
-        print('Processing gt_labels from: ' + self.data_path)
-
-        if not os.path.exists(self.cache_path):
-            os.makedirs(self.cache_path)
-
-        if self.phase == 'train':
-            txtname = os.path.join(self.data_path, 'ImageSets', 'Main',
-                                   'trainval.txt')
-        else:
-            txtname = os.path.join(self.data_path, 'ImageSets', 'Main',
-                                   'test.txt')
-        with open(txtname, 'r') as f:
-            self.image_index = [x.strip() for x in f.readlines()]
-
         gt_labels = []
-        for index in self.image_index:
+        for index in range(0,45):
             label, num = self.load_pascal_annotation(index)
             if num == 0:
                 continue
@@ -108,8 +94,8 @@ class pascal_voc(object):
         Load image and bounding boxes info from XML file in the PASCAL VOC
         format.
         """
-
-        imname = os.path.join(self.data_path, 'JPEGImages', index + '.jpg')
+        imname = os.path.join('home/mat/yoloText/data/training', str("%04d"%index))
+        print(imname)
         im = cv2.imread(imname)
         h_ratio = 1.0 * self.image_size / im.shape[0]
         w_ratio = 1.0 * self.image_size / im.shape[1]
