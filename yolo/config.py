@@ -19,7 +19,7 @@ WEIGHTS_FILE = None
 
 CLASSES = ['apple', 'bike', 'car', 'drive', 'end', 'fail', 'grad', 'hope', 'item', 'job']
 
-FLIPPED = True
+FLIPPED = False
 
 
 #
