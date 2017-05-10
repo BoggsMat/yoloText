@@ -27,7 +27,7 @@ class pascal_voc(object):
 
     def get(self):
         images = np.zeros((self.batch_size, self.image_size, self.image_size, 3))
-        labels = np.zeros((self.batch_size, self.cell_size, self.cell_size, 25))
+        labels = np.zeros((self.batch_size, self.cell_size, self.cell_size, 15))
         count = 0
         while count < self.batch_size:
             imname = self.gt_labels[self.cursor]['imname']
@@ -82,7 +82,7 @@ class pascal_voc(object):
             label, num = self.load_pascal_annotation(index)
             if num == 0:
                 continue
-            imname = os.path.join(self.data_path, 'JPEGImages', index + '.jpg')
+            imname = os.path.join('data/training', str("%04d")%index + '.png')
             gt_labels.append({'imname': imname, 'label': label, 'flipped': False})
         print('Saving gt_labels to: ' + cache_file)
         with open(cache_file, 'wb') as f:
@@ -94,15 +94,15 @@ class pascal_voc(object):
         Load image and bounding boxes info from XML file in the PASCAL VOC
         format.
         """
-        imname = os.path.join('home/mat/yoloText/data/training', str("%04d"%index))
+        imname = os.path.join('data/training', str("%04d"%index)+'.png')
         print(imname)
         im = cv2.imread(imname)
         h_ratio = 1.0 * self.image_size / im.shape[0]
         w_ratio = 1.0 * self.image_size / im.shape[1]
         # im = cv2.resize(im, [self.image_size, self.image_size])
 
-        label = np.zeros((self.cell_size, self.cell_size, 25))
-        filename = os.path.join(self.data_path, 'Annotations', index + '.xml')
+        label = np.zeros((self.cell_size, self.cell_size, 15))
+        filename = os.path.join('data/training',  str("%04d"%index) + '.xml')
         tree = ET.parse(filename)
         objs = tree.findall('object')
 
