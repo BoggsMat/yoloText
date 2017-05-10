@@ -37,14 +37,15 @@ def genIm(num, word):
 
 if __name__ == "__main__":
 	words = ["apple", "bike", "car", "drive", "end", "fail", "grad", "hope", "item", "job"]
-	#im = cv2.imread('training/0000.png')
-	#cv2.imshow("test", im)
-	for i in range(45): 
-		wd = randint(0,9)
-		(x, y, w, h) = genIm(i, words[wd])
-		writer = PascalVocWriter('data/training/', str("%04d"%i)+ ".xml", (448,448))
-		writer.addBndBox(x-2, y-2, x+w+2, y+h+2, words[wd])
-		writer.save('data/training/'+str("%04d"%i)+ ".xml")
+	im = cv2.imread('training/0000.png')
+	cv2.imshow("test", im)
+	cv2.waitKey(0)
+	# for i in range(45): 
+	# 	wd = randint(0,9)
+	# 	(x, y, w, h) = genIm(i, words[wd])
+	# 	writer = PascalVocWriter('training/', str("%04d"%i)+ ".xml", (448,448))
+	# 	writer.addBndBox(x-2, y-2, x+w+2, y+h+2, words[wd])
+	# 	writer.save('training/'+str("%04d"%i)+ ".xml")
 
 
 
