@@ -6,6 +6,7 @@ from PIL import ImageDraw
 from random import randint
 from pascal import PascalVocWriter
 import cv2 
+import argparse
 
 def genIm(num, word): 
 	# Random ints 
@@ -36,16 +37,18 @@ def genIm(num, word):
 	return (x,y,w,h)
 
 if __name__ == "__main__":
+	parser = argparse.ArgumentParser()
+	parser.add_argument('--num', default=45, type=int)
+	args = parser.parse_args()
+
 	words = ["apple", "bike", "car", "drive", "end", "fail", "grad", "hope", "item", "job"]
-	im = cv2.imread('training/0000.png')
-	cv2.imshow("test", im)
-	cv2.waitKey(0)
-	# for i in range(45): 
-	# 	wd = randint(0,9)
-	# 	(x, y, w, h) = genIm(i, words[wd])
-	# 	writer = PascalVocWriter('training/', str("%04d"%i)+ ".xml", (448,448))
-	# 	writer.addBndBox(x-2, y-2, x+w+2, y+h+2, words[wd])
-	# 	writer.save('training/'+str("%04d"%i)+ ".xml")
+
+	for i in range(args.num): 
+		wd = randint(0,9)
+		(x, y, w, h) = genIm(i, words[wd])
+		writer = PascalVocWriter('training/', str("%04d"%i)+ ".xml", (448,448))
+		writer.addBndBox(x-2, y-2, x+w+2, y+h+2, words[wd])
+		writer.save('training/'+str("%04d"%i)+ ".xml")
 
 
 

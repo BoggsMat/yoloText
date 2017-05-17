@@ -182,7 +182,7 @@ def main():
     # detector.camera_detector(cap)
 
     # detect from image file
-    imname = 'test/person.jpg'
+    imname = 'test.png'
     detector.image_detector(imname)
 
 
